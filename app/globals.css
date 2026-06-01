@@ -1,26 +1,207 @@
 @import "tailwindcss";
 
+/* ──────────────────────────────────────────────
+   Design Tokens
+   ────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #232323;
+  --color-surface: #1c1c1c;
+  --color-surface-2: #2a2a2a;
+  --color-orange: #e05c2e;
+  --color-orange-lt: #f07040;
+  --color-cream: #f5e6d8;
+  --color-white: #ffffff;
+  --color-muted: #888888;
+  --color-border: #3a3a3a;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-white);
+  --color-surface: var(--color-surface);
+  --color-surface-2: var(--color-surface-2);
+  --color-orange: var(--color-orange);
+  --color-orange-lt: var(--color-orange-lt);
+  --color-cream: var(--color-cream);
+  --color-muted: var(--color-muted);
+  --color-border: var(--color-border);
+  --font-display: var(--font-bebas-neue);
+  --font-body: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ──────────────────────────────────────────────
+   Base
+   ────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-white);
+  font-family: var(--font-body), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ──────────────────────────────────────────────
+   Grid Pattern (Hero)
+   ────────────────────────────────────────────── */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 80px 50px;
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+}
+
+/* ──────────────────────────────────────────────
+   Blob Animation
+   ────────────────────────────────────────────── */
+@keyframes blob-float {
+  0% {
+    transform: scale(1) translate(0px, 0px);
+  }
+  25% {
+    transform: scale(1.04) translate(30px, -20px);
+  }
+  50% {
+    transform: scale(1.08) translate(40px, 15px);
+  }
+  75% {
+    transform: scale(1.04) translate(10px, 35px);
+  }
+  100% {
+    transform: scale(1) translate(0px, 0px);
+  }
+}
+
+.blob-wrapper {
+  animation: blob-float 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ──────────────────────────────────────────────
+   Grain / Texture Overlay
+   ────────────────────────────────────────────── */
+.grain-overlay {
+  mix-blend-mode: darken;
+  pointer-events: none;
+}
+
+/* ──────────────────────────────────────────────
+   Navbar Glass
+   ────────────────────────────────────────────── */
+.navbar-glass {
+  background: rgba(35, 35, 35, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.navbar-solid {
+  background: rgba(35, 35, 35, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Nav link hover underline */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--color-orange);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ──────────────────────────────────────────────
+   Mobile Menu
+   ────────────────────────────────────────────── */
+.mobile-menu-enter {
+  animation: slide-down 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.mobile-menu-exit {
+  animation: slide-up 0.25s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+/* ──────────────────────────────────────────────
+   CTA Button
+   ────────────────────────────────────────────── */
+.cta-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-white);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+}
+
+.cta-button:hover::before {
+  transform: scaleX(1);
+}
+
+.cta-button:hover {
+  color: var(--color-bg);
+  border-color: var(--color-white);
+}
+
+.cta-button span,
+.cta-button svg {
+  position: relative;
+  z-index: 1;
+}
+
+/* ──────────────────────────────────────────────
+   4-Point Star SVG
+   ────────────────────────────────────────────── */
+@keyframes star-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.star-rotate {
+  animation: star-spin 12s linear infinite;
 }
