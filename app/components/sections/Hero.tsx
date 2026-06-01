@@ -51,10 +51,10 @@ export default function Hero() {
         <div
           className="blob-wrapper absolute pointer-events-none"
         style={{
-          top: "-20%",
-          right: "-35%",
-          width: "75%",
-          height: "110%",
+          top: "-15vh",
+          right: "min(-30vw, -25vh)",
+          width: "max(75vw, clamp(550px, 95vw, 110vh))",
+          height: "clamp(550px, 95vw, 110vh)",
           mixBlendMode: "screen",
           WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 20%)",
           maskImage: "linear-gradient(to right, transparent 0%, black 40%)"
@@ -88,15 +88,15 @@ export default function Hero() {
         <div
           className="blob-wrapper absolute pointer-events-none"
         style={{
-          top: "10%",
+          bottom: "-10vh",
           transform: "translateY(-50%)",
-          left: "-30%",
-          width: "60%",
-          height: "90%",
+          left: "min(-25vw, -25vh)",
+          width: "max(60vw, clamp(450px, 85vw, 100vh))",
+          height: "clamp(450px, 85vw, 100vh)",
           animationDelay: "-5s",
           animationDuration: "10s",
           mixBlendMode: "screen",
-          WebkitMaskImage: "linear-gradient(to left, transparent 0%, black %)",
+          WebkitMaskImage: "linear-gradient(to left, transparent 0%, black 50%)",
           maskImage: "linear-gradient(to left, transparent 0%, black 50%)"
         }}
         aria-hidden="true"
