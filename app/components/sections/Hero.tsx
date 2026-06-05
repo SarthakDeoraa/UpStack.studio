@@ -1,9 +1,10 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useLayoutEffect, useCallback } from "react";
+import TypographicGrid, { type GridMetrics } from "../TypographicGrid";
 
-/* ─── Inline SVG Icons ─── */
+// Icons
 function ArrowRight({ size = 18 }: { size?: number }) {
   return (
     <svg
@@ -22,12 +23,47 @@ function ArrowRight({ size = 18 }: { size?: number }) {
   );
 }
 
+// Hero
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [gridMetrics, setGridMetrics] = useState<GridMetrics | null>(null);
+
+  // Track text positions for grid
+  const contentRef = useRef<HTMLDivElement>(null);
+  const lineRefs = [
+    useRef<HTMLSpanElement>(null),
+    useRef<HTMLSpanElement>(null),
+    useRef<HTMLSpanElement>(null),
+  ];
+
+  const measureGrid = useCallback(() => {
+    const container = contentRef.current;
+    if (!container) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const lines = lineRefs
+      .map((ref) => {
+        if (!ref.current) return null;
+        const rect = ref.current.getBoundingClientRect();
+        return {
+          top: rect.top - containerRect.top,
+          bottom: rect.bottom - containerRect.top,
+          left: rect.left - containerRect.left,
+          right: rect.right - containerRect.left,
+        };
+      })
+      .filter(Boolean) as GridMetrics["lines"];
+
+    setGridMetrics({
+      containerWidth: containerRect.width,
+      containerHeight: containerRect.height,
+      lines,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      // Calculate mouse position relative to center of screen (-1 to 1)
       const x = (e.clientX / window.innerWidth - 0.5) * 2;
       const y = (e.clientY / window.innerHeight - 0.5) * 2;
       setMousePosition({ x, y });
@@ -37,17 +73,40 @@ export default function Hero() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  // Measure grid layout
+  useLayoutEffect(() => {
+    measureGrid();
+
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(measureGrid, 100);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(resizeTimer);
+    };
+  }, [measureGrid]);
+
+  // Wait for custom fonts
+  useEffect(() => {
+    document.fonts.ready.then(() => {
+      measureGrid();
+    });
+  }, [measureGrid]);
+
   return (
     <section
       id="hero"
       className="relative min-h-screen w-full overflow-hidden flex items-center"
     >
-      {/* Right Blob Parallax Wrapper */}
+      {/* Right Blob */}
       <div 
         className="absolute inset-0 pointer-events-none z-[2] transition-transform duration-1000 ease-out"
         style={{ transform: `translate(${mousePosition.x * -40}px, ${mousePosition.y * -40}px)` }}
       >
-        {/* Right blob wrapper — blob + grain move together */}
         <div
           className="blob-wrapper absolute pointer-events-none"
         style={{
@@ -79,12 +138,11 @@ export default function Hero() {
       </div>
       </div>
 
-      {/* Left Blob Parallax Wrapper */}
+      {/* Left Blob */}
       <div 
         className="absolute inset-0 pointer-events-none z-[2] transition-transform duration-1000 ease-out"
         style={{ transform: `translate(${mousePosition.x * 30}px, ${mousePosition.y * 30}px)` }}
       >
-        {/* Left blob wrapper */}
         <div
           className="blob-wrapper absolute pointer-events-none"
         style={{
@@ -118,7 +176,7 @@ export default function Hero() {
         />
       </div>
       </div>
-      {/* Fade Overlays — specifically targeted to hide grid without clipping blobs */}
+      {/* Top Fade */}
       <div className="absolute inset-0 z-[3] pointer-events-none" aria-hidden="true">
        
         <div 
@@ -131,17 +189,20 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-[10] w-full px-6 md:px-12 lg:px-20 pt-20 md:pt-24 lg:pt-16">
-        <div className="max-w-3xl mx-auto lg:mx-0 text-center lg:text-left flex flex-col items-center lg:items-start">
-          <h1 className="font-brand text-[clamp(2.8rem,6.5vw,6rem)] leading-[1.2] tracking-[0.03em] text-white mb-0 md:-mb-4">
-            ELEVATING
+      <div ref={contentRef} className="relative z-[10] w-full px-6 md:px-12 lg:px-20 pt-20 md:pt-24 lg:pt-16">
+        {/* Background Grid */}
+        <TypographicGrid metrics={gridMetrics} />
+
+        <div className="relative max-w-3xl mx-auto lg:mx-0 text-center lg:text-left flex flex-col items-center lg:items-start">
+          <h1 className="relative z-[1] font-brand text-[clamp(2.8rem,6.5vw,6rem)] leading-[1.2] tracking-[0.03em] text-white mb-0 md:-mb-5">
+            <span ref={lineRefs[0]} className="inline-block">ELEVATING</span>
             <br />
-            BEYOND
+            <span ref={lineRefs[1]} className="inline-block">BEYOND</span>
             <br />
-            CONSCIENCE
+            <span ref={lineRefs[2]} className="inline-block">CONSCIENCE</span>
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-lg leading-relaxed mb-12 md:mb-16">
+          <p className="relative z-10 text-sm sm:text-base md:text-lg text-white/70 max-w-lg leading-relaxed mb-12 md:mb-16">
             No buzzwords. No clutter. Just sharp code,{" "}
             <span className="text-orange italic">bold design</span>, and a
             solution built for you — right now.
@@ -149,7 +210,7 @@ export default function Hero() {
 
           <a
             href="#contact"
-            className="cta-button inline-flex items-center gap-3 border border-white/40 rounded-full px-7 py-3 text-sm md:text-base font-body text-white transition-all hover:gap-4"
+            className="cta-button relative z-10 inline-flex items-center gap-3 border border-white/40 rounded-full px-7 py-3 text-sm md:text-base font-body text-white transition-all hover:gap-4"
           >
             <span>Book a call</span>
             <ArrowRight size={18} />

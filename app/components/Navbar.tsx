@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 
-/* ─── Inline SVG Icons ─── */
+// Icons
 function ArrowRight({ size = 18, className = "" }: { size?: number; className?: string }) {
   return (
     <svg
@@ -72,7 +72,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [closing, setClosing] = useState(false);
 
-  // Lock body scroll when mobile menu is open
+  // Lock scroll
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = "hidden";
@@ -121,7 +121,7 @@ export default function Navbar() {
           />
         </a>
 
-        {/* Desktop Nav Links */}
+        {/* Desktop links */}
         <div className="hidden lg:flex items-center gap-8 lg:gap-15">
           {NAV_LINKS.map((link) => (
             <a
@@ -146,7 +146,7 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Mobile Hamburger */}
+        {/* Mobile menu toggle */}
         <button
           className="lg:hidden relative z-50 w-10 h-10 flex items-center justify-center"
           onClick={() => {
