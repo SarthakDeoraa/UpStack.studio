@@ -115,20 +115,20 @@ export default function Navbar() {
           <Image
             src="/logo.svg"
             alt="UpStack Studio"
-            width={160}
-            height={34}
+            width={200}
+            height={42.5}
             preload
           />
         </a>
 
         {/* Desktop Nav Links */}
-        <div className="hidden md:flex items-center gap-8 lg:gap-10">
+        <div className="hidden lg:flex items-center gap-8 lg:gap-15">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="nav-link font-display text-sm lg:text-base tracking-[0.15em] uppercase text-white/90 hover:text-white transition-colors"
+              className="nav-link font-display text-sm lg:text-xl tracking-[0.15em] uppercase text-white/90 hover:text-white transition-colors"
             >
               {link.label}
             </a>
@@ -136,7 +136,7 @@ export default function Navbar() {
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, "#contact")}
-            className="nav-link group flex items-center gap-2 font-display text-sm lg:text-base tracking-[0.15em] uppercase text-white/90 hover:text-white transition-colors"
+            className="nav-link group flex items-center gap-2 font-display text-sm lg:text-xl tracking-[0.15em] uppercase text-white/90 hover:text-white transition-colors"
           >
             Contact Us
             <ArrowRight
@@ -148,7 +148,7 @@ export default function Navbar() {
 
         {/* Mobile Hamburger */}
         <button
-          className="md:hidden relative z-50 w-10 h-10 flex items-center justify-center"
+          className="lg:hidden relative z-50 w-10 h-10 flex items-center justify-center"
           onClick={() => {
             if (mobileOpen) {
               closeMobile();
@@ -183,7 +183,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div
-          className={`md:hidden absolute top-full left-0 right-0 navbar-solid border-t border-white/5 ${
+          className={`lg:hidden absolute top-full left-0 right-0 navbar-solid border-t border-white/5 ${
             closing ? "mobile-menu-exit" : "mobile-menu-enter"
           }`}
         >

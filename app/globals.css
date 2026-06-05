@@ -25,8 +25,9 @@
   --color-cream: var(--color-cream);
   --color-muted: var(--color-muted);
   --color-border: var(--color-border);
-  --font-display: var(--font-bebas-neue);
-  --font-body: var(--font-inter);
+  --font-display: var(--font-regila), sans-serif;
+  --font-brand: var(--font-milk-var), sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
 }
 
 /* ──────────────────────────────────────────────

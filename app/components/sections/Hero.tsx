@@ -40,7 +40,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen w-full overflow-hidden flex items-end pb-16 sm:pb-20 md:pb-24 lg:items-center lg:pb-0"
+      className="relative min-h-screen w-full overflow-hidden flex items-center"
     >
       {/* Right Blob Parallax Wrapper */}
       <div 
@@ -131,9 +131,9 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      {/* <div className="relative z-[10] w-full px-6 md:px-12 lg:px-20 pt-32 md:pt-40 lg:pt-0">
-        <div className="max-w-3xl">
-          <h1 className="font-display text-[clamp(3rem,8vw,7.5rem)] leading-[0.9] tracking-[-0.01em] text-cream mb-6 md:mb-8">
+      <div className="relative z-[10] w-full px-6 md:px-12 lg:px-20 pt-20 md:pt-24 lg:pt-16">
+        <div className="max-w-3xl mx-auto lg:mx-0 text-center lg:text-left flex flex-col items-center lg:items-start">
+          <h1 className="font-brand text-[clamp(2.8rem,6.5vw,6rem)] leading-[1.2] tracking-[0.03em] text-white mb-0 md:-mb-4">
             ELEVATING
             <br />
             BEYOND
@@ -141,7 +141,7 @@ export default function Hero() {
             CONSCIENCE
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-md leading-relaxed mb-8 md:mb-10">
+          <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-lg leading-relaxed mb-12 md:mb-16">
             No buzzwords. No clutter. Just sharp code,{" "}
             <span className="text-orange italic">bold design</span>, and a
             solution built for you — right now.
@@ -155,7 +155,7 @@ export default function Hero() {
             <ArrowRight size={18} />
           </a>
         </div>
-      </div> */}
+      </div>
     </section>
   );
 }

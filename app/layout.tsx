@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Bebas_Neue } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const inter = Inter({
@@ -12,6 +13,18 @@ const bebasNeue = Bebas_Neue({
   variable: "--font-bebas-neue",
   weight: "400",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const regila = localFont({
+  src: "./fonts/Regila-DEMO.otf",
+  variable: "--font-regila",
+  display: "swap",
+});
+
+const milk = localFont({
+  src: "./fonts/MilkAndHoney.ttf",
+  variable: "--font-milk-var",
   display: "swap",
 });
 
@@ -35,7 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${bebasNeue.variable} h-full antialiased`}
+      className={`${inter.variable} ${bebasNeue.variable} ${regila.variable} ${milk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
