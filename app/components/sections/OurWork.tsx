@@ -107,11 +107,11 @@ export default function OurWork() {
       <div className="hidden sm:block">
         {/* Header */}
         <div className="px-6 md:px-12 lg:px-20 pt-8 md:pt-12 pb-0">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 md:gap-6">
+          <div className="flex flex-col lg:flex-row items-center lg:items-end lg:justify-between gap-4 lg:gap-6 text-center lg:text-left">
             <GridHeading className="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[1] tracking-[0.08em] uppercase text-white">
               Our Work
             </GridHeading>
-            <p className="text-sm md:text-base text-white/60 md:whitespace-nowrap leading-relaxed md:pb-2">
+            <p className="text-sm md:text-base text-white/60 lg:whitespace-nowrap leading-relaxed lg:pb-2">
               &ldquo;Building stacks with{" "}
               <span className="text-white font-semibold">supreme quality</span>{" "}
               and{" "}
@@ -159,11 +159,11 @@ export default function OurWork() {
         {/* Content wrapper pulled up over the background */}
         <div className="relative z-10 -mt-[100vh] flex flex-col min-h-[100vh]">
           {/* Header at top (Sticky, z-20 so it covers cards) */}
-          <div className="sticky top-0 z-20 bg-[var(--color-bg)] px-6 pt-10 pb-4">
-            <GridHeading className="font-display text-[clamp(2.2rem,8vw,3rem)] leading-[1] tracking-[0.08em] uppercase text-white text-center">
+          <div className="sticky top-0 z-20 bg-[var(--color-bg)] px-6 pt-10 pb-4 text-center">
+            <h2 className="font-display text-[clamp(2.5rem,10vw,3.5rem)] leading-[1] tracking-[0.08em] uppercase text-white">
               Our Work
-            </GridHeading>
-            <p className="text-sm text-white/60 leading-relaxed text-center mt-3">
+            </h2>
+            <p className="text-sm text-white/60 leading-relaxed mt-3 max-w-[280px] mx-auto">
               &ldquo;Building stacks with{" "}
               <span className="text-white font-semibold">supreme quality</span>{" "}
               and{" "}
