@@ -28,6 +28,12 @@ const milk = localFont({
   display: "swap",
 });
 
+const clashDisplay = localFont({
+  src: "./fonts/ClashDisplay-Medium.ttf",
+  variable: "--font-clash-var",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "UpStack Studio — Digital Agency",
   description:
@@ -48,7 +54,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${bebasNeue.variable} ${regila.variable} ${milk.variable} h-full antialiased`}
+      className={`${inter.variable} ${bebasNeue.variable} ${regila.variable} ${milk.variable} ${clashDisplay.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

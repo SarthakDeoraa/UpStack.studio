@@ -213,6 +213,13 @@ export default function Hero() {
           </Button>
         </div>
       </div>
+
+      {/* Star Sparkle */}
+      <img
+        src="/star-sparkle.svg"
+        alt=""
+        className="absolute right-0 bottom-0 w-20 h-20 md:w-100 md:h-50 z-[20] pointer-events-none"
+      />
     </section>
   );
 }

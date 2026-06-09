@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-/* ──────────────────────────────────────────────
-   Design Tokens
-   ────────────────────────────────────────────── */
 :root {
   --color-bg: #232323;
   --color-surface: #1c1c1c;
@@ -27,12 +24,10 @@
   --color-border: var(--color-border);
   --font-display: var(--font-regila), sans-serif;
   --font-brand: var(--font-milk-var), sans-serif;
+  --font-clash: var(--font-clash-var), sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
 }
 
-/* ──────────────────────────────────────────────
-   Base
-   ────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
 }
@@ -44,9 +39,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ──────────────────────────────────────────────
-   Grid Pattern (Hero)
-   ────────────────────────────────────────────── */
 .hero-grid {
   background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
@@ -58,25 +50,12 @@ body {
     linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
 }
 
-/* ──────────────────────────────────────────────
-   Blob Animation
-   ────────────────────────────────────────────── */
 @keyframes blob-float {
-  0% {
-    transform: scale(1) translate(0px, 0px);
-  }
-  25% {
-    transform: scale(1.04) translate(30px, -20px);
-  }
-  50% {
-    transform: scale(1.08) translate(40px, 15px);
-  }
-  75% {
-    transform: scale(1.04) translate(10px, 35px);
-  }
-  100% {
-    transform: scale(1) translate(0px, 0px);
-  }
+  0% { transform: scale(1) translate(0px, 0px); }
+  25% { transform: scale(1.04) translate(30px, -20px); }
+  50% { transform: scale(1.08) translate(40px, 15px); }
+  75% { transform: scale(1.04) translate(10px, 35px); }
+  100% { transform: scale(1) translate(0px, 0px); }
 }
 
 .blob-wrapper {
@@ -84,17 +63,11 @@ body {
   will-change: transform;
 }
 
-/* ──────────────────────────────────────────────
-   Grain / Texture Overlay
-   ────────────────────────────────────────────── */
 .grain-overlay {
   mix-blend-mode: darken;
   pointer-events: none;
 }
 
-/* ──────────────────────────────────────────────
-   Navbar Glass
-   ────────────────────────────────────────────── */
 .navbar-glass {
   background: rgba(35, 35, 35, 0.8);
   backdrop-filter: blur(16px);
@@ -107,7 +80,6 @@ body {
   -webkit-backdrop-filter: blur(20px);
 }
 
-/* Nav link hover underline */
 .nav-link {
   position: relative;
 }
@@ -127,9 +99,6 @@ body {
   width: 100%;
 }
 
-/* ──────────────────────────────────────────────
-   Mobile Menu
-   ────────────────────────────────────────────── */
 .mobile-menu-enter {
   animation: slide-down 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -139,30 +108,15 @@ body {
 }
 
 @keyframes slide-down {
-  from {
-    opacity: 0;
-    transform: translateY(-12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slide-up {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-12px);
-  }
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-12px); }
 }
 
-/* ──────────────────────────────────────────────
-   CTA Button
-   ────────────────────────────────────────────── */
 .cta-button {
   position: relative;
   overflow: hidden;
@@ -195,9 +149,6 @@ body {
   z-index: 1;
 }
 
-/* ──────────────────────────────────────────────
-   4-Point Star SVG
-   ────────────────────────────────────────────── */
 @keyframes star-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

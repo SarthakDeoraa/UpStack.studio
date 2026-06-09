@@ -4,7 +4,17 @@ export interface GridMetrics {
   lines: { top: number; bottom: number; left: number; right: number }[];
 }
 
-export default function TypographicGrid({ metrics }: { metrics: GridMetrics | null }) {
+export default function TypographicGrid({
+  metrics,
+  color = "white",
+  tightBounds = false,
+  hideMajorLines = false,
+}: {
+  metrics: GridMetrics | null;
+  color?: string;
+  tightBounds?: boolean;
+  hideMajorLines?: boolean;
+}) {
   if (!metrics || metrics.lines.length === 0) return null;
 
   const { containerWidth, containerHeight, lines } = metrics;
@@ -23,16 +33,16 @@ export default function TypographicGrid({ metrics }: { metrics: GridMetrics | nu
   const textRight = Math.max(...lines.map((l) => l.right));
 
   // Extended grid area (lets lines fade off-screen)
-  const gridTop = textTop - 250;
-  const gridBottom = textBottom + 300;
-  const gridLeft = textLeft - 150;
-  const gridRight = textRight + 120;
+  const gridTop = textTop - (tightBounds ? 60 : 150);
+  const gridBottom = textBottom + (tightBounds ? 60 : 150);
+  const gridLeft = textLeft - (tightBounds ? 80 : 150);
+  const gridRight = textRight + (tightBounds ? 80 : 120);
   const gridWidth = gridRight - gridLeft;
   const gridHeight = gridBottom - gridTop;
 
   // Vertical lines (randomly spaced)
   const verticalLines: { x: number; opacity: number; width: number }[] = [];
-  const vertCount = 40;
+  const vertCount = tightBounds ? 25 : 40; // Fewer lines for tight bounds
   for (let i = 0; i < vertCount; i++) {
     const r1 = seededRandom(i);
     const r2 = seededRandom(i + 100);
@@ -57,13 +67,16 @@ export default function TypographicGrid({ metrics }: { metrics: GridMetrics | nu
   const subStep = lineHeight / 5;
   if (subStep > 0) {
     // Stop horizontal lines shortly past the text
-    const horizontalLimitTop = textTop - 40;
-    const horizontalLimitBottom = textBottom + 40;
+    const horizontalLimitTop = textTop - (tightBounds ? 20 : 40);
+    const horizontalLimitBottom = textBottom + (tightBounds ? 20 : 40);
     
     for (let y = horizontalLimitTop; y <= horizontalLimitBottom; y += subStep) {
       subdivisions.push(y);
     }
   }
+
+  // Generate unique IDs for gradients to prevent cross-component bleed
+  const idSuffix = color.replace(/[^a-zA-Z0-9]/g, '');
 
   return (
     <svg
@@ -74,29 +87,29 @@ export default function TypographicGrid({ metrics }: { metrics: GridMetrics | nu
       aria-hidden="true"
     >
       <defs>
-        {/* Edge fades */}
-        <linearGradient id="grid-fade-h" x1="0" y1="0" x2="1" y2="0">
+        {/* Edge fades (mask uses white/black, not the stroke color) */}
+        <linearGradient id={`grid-fade-h-${idSuffix}`} x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="white" stopOpacity="0" />
-          <stop offset="5%" stopColor="white" stopOpacity="0.5" />
+          <stop offset={tightBounds ? "20%" : "5%"} stopColor="white" stopOpacity={tightBounds ? "1" : "0.5"} />
           <stop offset="15%" stopColor="white" stopOpacity="1" />
-          <stop offset="60%" stopColor="white" stopOpacity="1" />
+          <stop offset={tightBounds ? "80%" : "60%"} stopColor="white" stopOpacity="1" />
           <stop offset="100%" stopColor="white" stopOpacity="0" />
         </linearGradient>
-        <linearGradient id="grid-fade-v" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={`grid-fade-v-${idSuffix}`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="white" stopOpacity="0" />
-          <stop offset="30%" stopColor="white" stopOpacity="1" />
-          <stop offset="70%" stopColor="white" stopOpacity="1" />
+          <stop offset={tightBounds ? "40%" : "30%"} stopColor="white" stopOpacity="1" />
+          <stop offset={tightBounds ? "60%" : "70%"} stopColor="white" stopOpacity="1" />
           <stop offset="100%" stopColor="white" stopOpacity="0" />
         </linearGradient>
-        <mask id="grid-mask-v">
-          <rect x={gridLeft} y={gridTop} width={gridWidth} height={gridHeight} fill="url(#grid-fade-v)" />
+        <mask id={`grid-mask-v-${idSuffix}`}>
+          <rect x={gridLeft} y={gridTop} width={gridWidth} height={gridHeight} fill={`url(#grid-fade-v-${idSuffix})`} />
         </mask>
-        <mask id="grid-mask">
-          <rect x={gridLeft} y={gridTop} width={gridWidth} height={gridHeight} fill="url(#grid-fade-h)" mask="url(#grid-mask-v)" />
+        <mask id={`grid-mask-${idSuffix}`}>
+          <rect x={gridLeft} y={gridTop} width={gridWidth} height={gridHeight} fill={`url(#grid-fade-h-${idSuffix})`} mask={`url(#grid-mask-v-${idSuffix})`} />
         </mask>
       </defs>
 
-      <g mask="url(#grid-mask)">
+      <g mask={`url(#grid-mask-${idSuffix})`}>
         {/* Major text-aligned lines */}
         {lines.map((line, i) => (
           <g key={`major-${i}`}>
@@ -104,14 +117,14 @@ export default function TypographicGrid({ metrics }: { metrics: GridMetrics | nu
             <line
               x1={gridLeft} y1={line.top}
               x2={gridRight} y2={line.top}
-              stroke="white" strokeOpacity="0.35" strokeWidth="1"
+              stroke={color} strokeOpacity={tightBounds ? "0.6" : "0.35"} strokeWidth={tightBounds ? "1.5" : "1"}
             />
             {/* Baseline (skip last) */}
             {i !== lines.length - 1 && (
               <line
                 x1={gridLeft} y1={line.bottom}
                 x2={gridRight} y2={line.bottom}
-                stroke="white" strokeOpacity="0.35" strokeWidth="1"
+                stroke={color} strokeOpacity={tightBounds ? "0.6" : "0.35"} strokeWidth={tightBounds ? "1.5" : "1"}
               />
             )}
           </g>
@@ -129,7 +142,7 @@ export default function TypographicGrid({ metrics }: { metrics: GridMetrics | nu
               key={`sub-${i}`}
               x1={gridLeft} y1={y}
               x2={gridRight} y2={y}
-              stroke="white" strokeOpacity="0.15" strokeWidth="0.5"
+              stroke={color} strokeOpacity={tightBounds ? "0.3" : "0.15"} strokeWidth={tightBounds ? "1" : "0.5"}
             />
           );
         })}
@@ -140,7 +153,7 @@ export default function TypographicGrid({ metrics }: { metrics: GridMetrics | nu
             key={`vert-${i}`}
             x1={vl.x} y1={gridTop}
             x2={vl.x} y2={gridBottom}
-            stroke="white" strokeOpacity={vl.opacity} strokeWidth={vl.width}
+            stroke={color} strokeOpacity={tightBounds ? Math.min(1, vl.opacity * 2.5) : vl.opacity} strokeWidth={tightBounds ? vl.width * 1.5 : vl.width}
           />
         ))}
       </g>
