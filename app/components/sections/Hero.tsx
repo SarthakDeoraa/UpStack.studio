@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useRef, useLayoutEffect, useCallback } from "react";
 import TypographicGrid, { type GridMetrics } from "../TypographicGrid";
+import Button from "../Button";
 
 // Icons
 function ArrowRight({ size = 18 }: { size?: number }) {
@@ -146,11 +147,10 @@ export default function Hero() {
         <div
           className="blob-wrapper absolute pointer-events-none"
         style={{
-          bottom: "-10vh",
-          transform: "translateY(-50%)",
+          bottom: "10vh",
           left: "min(-25vw, -25vh)",
-          width: "max(60vw, clamp(450px, 85vw, 100vh))",
-          height: "clamp(450px, 85vw, 100vh)",
+          width: "max(45vw, clamp(350px, 60vw, 75vh))",
+          height: "clamp(350px, 60vw, 75vh)",
           animationDelay: "-5s",
           animationDuration: "10s",
           mixBlendMode: "screen",
@@ -208,15 +208,18 @@ export default function Hero() {
             solution built for you — right now.
           </p>
 
-          <a
-            href="#contact"
-            className="cta-button relative z-10 inline-flex items-center gap-3 border border-white/40 rounded-full px-7 py-3 text-sm md:text-base font-body text-white transition-all hover:gap-4"
-          >
-            <span>Book a call</span>
-            <ArrowRight size={18} />
-          </a>
+          <Button href="#contact" className="mt-6">
+            Book a call
+          </Button>
         </div>
       </div>
+
+      {/* Star Sparkle */}
+      <img
+        src="/star-sparkle.svg"
+        alt=""
+        className="absolute right-0 bottom-0 w-20 h-20 md:w-100 md:h-50 z-[20] pointer-events-none"
+      />
     </section>
   );
 }
