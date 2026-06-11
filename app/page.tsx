@@ -1,6 +1,9 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/sections/Hero";
 import OurWork from "./components/sections/OurWork";
+import Services from "./components/sections/Services";
+import Pricing from "./components/sections/Pricing";
+import Contact from "./components/sections/Contact";
 
 export default function Home() {
   return (
@@ -9,11 +12,9 @@ export default function Home() {
       <main>
         <Hero />
         <OurWork />
-        {/* Other sections will be added here:
-            <Services />
-            <Pricing />
-            <Contact />
-        */}
+        <Services />
+        <Pricing />
+        <Contact />
       </main>
     </>
   );

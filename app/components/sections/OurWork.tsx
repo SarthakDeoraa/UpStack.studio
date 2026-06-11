@@ -5,6 +5,7 @@ import { useState, useRef, useLayoutEffect, useCallback, useEffect } from "react
 import TypographicGrid, { type GridMetrics } from "../TypographicGrid";
 import WorkCard from "../WorkCard";
 import { projects } from "../../data/projects";
+import GlassSurface from './GlassSurface'
 
 // Background layers
 function WorkBackground({ className = "" }: { className?: string }) {
@@ -99,9 +100,44 @@ function GridHeading({ children, className = "" }: { children: React.ReactNode; 
   );
 }
 
+function HoverGlassTagline() {
+  return (
+    <div className="relative w-full pt-4 md:pt-8 pb-16 md:pb-24 flex justify-center items-center overflow-hidden cursor-default">
+      <h3 className="font-clash text-[8.5vw] lg:text-[9vw] leading-[1] text-white text-center whitespace-nowrap relative z-0">
+        Your dream, our{" "}
+        <span className="text-orange">build</span>
+      </h3>
+
+      {/* Fixed Glass Piece over 'dream' */}
+      <div 
+        className="absolute pointer-events-none z-10"
+        style={{
+          left: "46%",
+          top: "40%",
+          transform: "translate(-50%, -50%)"
+        }}
+      >
+        <GlassSurface
+          width="20vw"
+          height="8vw"
+          borderRadius={999}
+          displace={0.5}
+          distortionScale={-180}
+          redOffset={0}
+          greenOffset={10}
+          blueOffset={20}
+          brightness={50}
+          opacity={0.93}
+          mixBlendMode="screen"
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function OurWork() {
   return (
-    <section id="our-work" className="relative w-full">
+    <section id="our-work" className="relative w-full rounded-b-[3rem] md:rounded-b-[4rem] overflow-hidden z-10 bg-[var(--color-bg)]">
 
       {/* ══════ Desktop Layout (static, no sticky) ══════ */}
       <div className="hidden sm:block">
@@ -122,9 +158,9 @@ export default function OurWork() {
         </div>
 
         {/* Cards grid with bg */}
-        <div className="relative w-full" style={{ aspectRatio: "1 / 1" }}>
+        <div className="relative w-full pt-4 md:pt-30 pb-8 md:pb-12 overflow-hidden">
           <WorkBackground />
-          <div className="relative z-10 h-full flex items-center px-10 md:px-20 lg:px-32 py-8 md:py-12">
+          <div className="relative z-10 w-full px-10 md:px-20 lg:px-32">
             <div className="w-full grid grid-cols-2 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-14 lg:gap-x-10 lg:gap-y-16">
               {projects.map((project, i) => (
                 <WorkCard
@@ -141,12 +177,7 @@ export default function OurWork() {
         </div>
 
         {/* Bottom tagline */}
-        <div className="px-6 md:px-12 lg:px-20 pt-12 md:pt-20 pb-16 md:pb-24">
-          <h3 className="font-brand text-[clamp(2rem,6vw,5rem)] leading-[1.1] text-white">
-            Your dream, our{" "}
-            <span className="text-orange">build</span>
-          </h3>
-        </div>
+        <HoverGlassTagline />
       </div>
 
       {/* ══════ Mobile Layout ══════ */}
@@ -180,7 +211,7 @@ export default function OurWork() {
           </div>
 
           {/* Scrolling cards (z-10 so they go under header/tagline) */}
-          <div className="relative z-10 pt-16 pb-16 px-6 flex flex-col gap-6 flex-1">
+          <div className="relative z-10 pt-16 pb-6 px-6 flex flex-col gap-6 flex-1">
             {projects.map((project, i) => (
               <WorkCard
                 key={i}
@@ -194,7 +225,7 @@ export default function OurWork() {
           </div>
 
           {/* Tagline at bottom (Sticky, z-20 so it covers cards) */}
-          <div className="sticky bottom-0 z-20 bg-[var(--color-bg)] px-6 pt-6 pb-8 mt-auto">
+          <div className="sticky bottom-0 z-20 bg-[var(--color-bg)] px-6 pt-3 pb-8 mt-auto">
             {/* Soft fade above tagline */}
             <div
               className="absolute top-0 left-0 w-full h-24 -translate-y-full pointer-events-none"
