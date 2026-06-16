@@ -7,39 +7,39 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: "Startup.co",
+    title: "Legacy Chain",
     description: "Sleek landing page for a web3 startup",
-    image: "/work-bg.png", // Add image path here
+    image: "/Frame 1.jpg", // Add image path here
     link: "#", // Add URL here
   },
   {
-    title: "Nexus",
-    description: "Modern dashboard for data analytics",
-    image: "",
+    title: "Beyond Design",
+    description: "Website for a design agency",
+    image: "/beyond design.png",
     link: "#",
   },
   {
-    title: "Aura",
-    description: "E-commerce platform for boutique fashion",
-    image: "",
+    title: "AutoX",
+    description: "Landing page for a business automations provider",
+    image: "/Frame 2.png",
     link: "#",
   },
   {
-    title: "Velocity",
-    description: "High-performance marketing site",
-    image: "",
+    title: "Pkoin",
+    description: "Revamp of Pkoin crypto asset",
+    image: "/pkoin.png",
     link: "#",
   },
   {
-    title: "Zenith",
-    description: "Mobile-first banking application",
-    image: "",
+    title: "Dreelio",
+    description: "Landing page for a dashboard provider",
+    image: "dreelio.jpeg",
     link: "#",
   },
   {
-    title: "Lumina",
-    description: "Creative portfolio for an agency",
-    image: "",
+    title: "Dashboards",
+    description: "User dashboard for a web3 asset management platform",
+    image: "dashboard.png",
     link: "#",
   },
 ];
