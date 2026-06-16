@@ -22,18 +22,18 @@ export default function WorkCard({ title, description, image, link, index }: Wor
       >
         {/* Project Background Image (if available) */}
         {image && (
-          <div 
-            className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+          <div
+            className="absolute inset-0 z-0 bg-cover bg-center brightness-[0.2] sm:brightness-100 transition-all duration-700 group-hover:scale-105 sm:group-hover:brightness-[0.2]"
             style={{ backgroundImage: `url('${image}')` }}
           />
         )}
 
         {/* Hover Orange Overlay */}
-        <div 
+        <div
           className="absolute inset-0 z-0 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 bg-cover bg-center"
           style={{ backgroundImage: "url('/work-card-hover-bg.png')" }}
         />
-        
+
         {/* Hover Content container */}
         <div className="absolute inset-0 z-10 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
           {/* Centered Title */}
