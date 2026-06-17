@@ -1,8 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Contact() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigator.clipboard.writeText("reach.upstackstudio@gmail.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section id="contact" className="relative w-full bg-[var(--color-bg)] pt-10 pb-4 md:pt-16 md:pb-6 overflow-hidden flex flex-col">
       {/* Huge Background Blob (Shifted Left & Bigger) */}
@@ -122,18 +132,25 @@ export default function Contact() {
       <div className="relative z-10 px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center w-full mt-auto">
         {/* Social Icons */}
         <div className="flex items-center gap-6 mb-6 md:mb-0">
-          <a href="#" className="text-white hover:text-[var(--color-orange)] transition-colors">
+          <a href="#!" onClick={(e) => e.preventDefault()} className="text-white/50 cursor-default transition-colors">
             <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
               <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
             </svg>
           </a>
-          <a href="#" className="text-white hover:text-[var(--color-orange)] transition-colors">
-            <svg className="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-              <polyline points="22,6 12,13 2,6" />
-            </svg>
-          </a>
+          <div className="relative flex items-center">
+            <a href="#!" onClick={handleCopyEmail} className="text-white hover:text-[var(--color-orange)] transition-colors cursor-pointer">
+              <svg className="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </a>
+            {/* Tooltip */}
+            <div className={`absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-[var(--color-orange)] text-white text-xs font-clash uppercase tracking-wider font-medium rounded shadow-lg transition-all duration-300 pointer-events-none ${copied ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}>
+              Copied!
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 border-[4px] border-transparent border-t-[var(--color-orange)]" />
+            </div>
+          </div>
         </div>
 
         {/* Copyright */}
