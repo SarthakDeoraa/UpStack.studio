@@ -53,7 +53,7 @@ export default function Contact() {
         </div>
 
         {/* Massive Title */}
-        <h2 className="font-clash text-[16vw] leading-[0.8] text-center text-[#FFF0E5] font-bold tracking-relaxed mb-16 md:mb-20 whitespace-nowrap">
+        <h2 className="font-clash text-[clamp(4rem,16vw,14rem)] leading-[0.8] text-[#FFF0E5] font-bold tracking-relaxed mb-16 md:mb-20 whitespace-nowrap self-center text-center">
           Contact us
         </h2>
 
