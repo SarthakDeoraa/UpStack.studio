@@ -121,7 +121,7 @@ export default function Pricing() {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-2 md:pt-3 lg:pt-2">
         {/* Desktop Title Background (Moved higher to be visible) */}
         <div className="hidden md:flex absolute top-0 left-0 right-0 justify-center pointer-events-none z-0 overflow-hidden">
-          <h2 className="font-clash text-[18vw] leading-none uppercase font-bold bg-gradient-to-b from-white to-white/10 bg-clip-text text-transparent select-none whitespace-nowrap">
+          <h2 className="font-clash text-[clamp(6rem,18vw,16rem)] leading-none uppercase font-bold bg-gradient-to-b from-white to-white/10 bg-clip-text text-transparent select-none whitespace-nowrap">
             Pricing
           </h2>
         </div>
