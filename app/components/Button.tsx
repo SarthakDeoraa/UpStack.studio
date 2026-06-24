@@ -1,3 +1,5 @@
+"use client";
+
 import { AnchorHTMLAttributes } from "react";
 
 
@@ -26,9 +28,23 @@ interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 export default function Button({ href, children, className = "", ...props }: ButtonProps) {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const lenis = (window as unknown as Record<string, unknown>).__lenis as { scrollTo: (target: string, options?: Record<string, unknown>) => void } | undefined;
+      if (lenis) {
+        lenis.scrollTo(href, { offset: 0 });
+      } else {
+        const el = document.querySelector(href);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <a
       href={href}
+      onClick={handleClick}
       className={`group relative z-10 inline-flex items-center justify-center border border-[#FFE8D6] bg-white/5 backdrop-blur-md shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-full px-8 py-2 text-xl md:text-2xl font-brand text-white overflow-hidden ${className}`}
       {...props}
     >
@@ -43,3 +59,4 @@ export default function Button({ href, children, className = "", ...props }: But
     </a>
   );
 }
+

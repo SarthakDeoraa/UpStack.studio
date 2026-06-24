@@ -4,10 +4,11 @@ import OurWork from "./components/sections/OurWork";
 import Services from "./components/sections/Services";
 import Pricing from "./components/sections/Pricing";
 import Contact from "./components/sections/Contact";
+import SmoothScroll from "./components/SmoothScroll";
 
 export default function Home() {
   return (
-    <>
+    <SmoothScroll>
       <Navbar />
       <main>
         <Hero />
@@ -16,6 +17,6 @@ export default function Home() {
         <Pricing />
         <Contact />
       </main>
-    </>
+    </SmoothScroll>
   );
 }

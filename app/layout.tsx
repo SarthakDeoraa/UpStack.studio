@@ -38,6 +38,9 @@ export const metadata: Metadata = {
   title: "UpStack Studio — Digital Agency",
   description:
     "No buzzwords. No clutter. Just sharp code, bold design, and a solution built for you — right now. UpStack Studio builds fullstack web apps, brands, and AI-powered solutions.",
+  icons: {
+    icon: "/favicon-1.svg",
+  },
   openGraph: {
     title: "UpStack Studio — Digital Agency",
     description:
