@@ -96,9 +96,12 @@ export default function Navbar() {
     (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
       e.preventDefault();
       if (mobileOpen) closeMobile();
-      const el = document.querySelector(href);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
+      const lenis = (window as unknown as Record<string, unknown>).__lenis as { scrollTo: (target: string, options?: Record<string, unknown>) => void } | undefined;
+      if (lenis) {
+        lenis.scrollTo(href, { offset: 0 });
+      } else {
+        const el = document.querySelector(href);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
       }
     },
     [mobileOpen, closeMobile]
