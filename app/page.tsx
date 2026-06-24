@@ -5,10 +5,12 @@ import Services from "./components/sections/Services";
 import Pricing from "./components/sections/Pricing";
 import Contact from "./components/sections/Contact";
 import SmoothScroll from "./components/SmoothScroll";
+import Loader from "./components/Loader";
 
 export default function Home() {
   return (
     <SmoothScroll>
+      <Loader />
       <Navbar />
       <main>
         <Hero />

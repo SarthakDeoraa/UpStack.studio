@@ -157,3 +157,49 @@ body {
 .star-rotate {
   animation: star-spin 12s linear infinite;
 }
+
+/* ─── Loader ─── */
+.loader-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 9999;
+  background: #E24425;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+.loader-logo-wrap {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.loader-logo-wrap img {
+  width: clamp(150px, 40vw, 260px);
+  height: auto;
+}
+
+.loader-logo-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.loader-slide-down {
+  animation: loader-down 0.9s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes loader-down {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
